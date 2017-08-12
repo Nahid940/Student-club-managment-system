@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>Login</title>
+		<meta name="generator" content="Bootply" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		
+		<link href="../usercss/bootstrap.min.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+    <link href="../usercss/styles.css" rel="stylesheet">
+	</head>
+	
+<body>
+
+<!--login modal-->
+
+<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+  
+      <div class="modal-body">
+          <h2>Admin Log in</h2>
+        
+          <center><h4><span class="label label-danger" id="result"></span></h4></center>
+          &nbsp;
+           <form action=""  id="loginform" method="post">
+            <div class="form-group">
+             <label for="">Email</label>
+              <input type="text" class="form-control input-lg" placeholder="Email" name="email" id="email"/>
+            </div>
+            <div class="form-group">
+             <label for="">Password</label>
+              <input type="password" class="form-control input-lg" placeholder="Password" name="password" id="password"/>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary btn-lg btn-block check button"  name="button" id="button">Log in</button>
+              <span class="pull-right">To create new account  <a href="signup.html">Sign up</a> here</span>
+            </div>
+          </form>
+      
+      </div>
+
+  </div>
+  </div>
+</div>
+<!--</form>-->
+
+    
+    <script src="../js/jquery.js"></script>
+   		
+    
+	<!-- script references -->
+		
+    <script src="../js/bootstrap.min.js"></script>
+   
+    <script src="http://formvalidation.io/vendor/formvalidation/js/formValidation.min.js"></script>
+    <script src="http://formvalidation.io/vendor/formvalidation/js/framework/bootstrap.min.js"></script>
+       
+    <script>
+         $(document).ready(function() {
+         $('#loginform').formValidation({
+              framework: 'bootstrap',
+    icon: {
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+    },
+
+    fields: {
+        id: {
+            validators: {
+                notEmpty: {
+                    message: 'Enter your ID!!'
+                }
+            }
+        },
+
+    password: {
+    validators: {
+    notEmpty: {
+        message: 'Enter Password!!'
+    }
+    }
+    },
+    }
+
+    });
+    });
+    </script>
+                		    
+    <script type="text/javascript">
+        
+	$(document).ready(function(){
+		$('#loginform').on('click','.button',function(e){
+            e.preventDefault();
+
+			var email = $('#email').val();
+			var password = $('#password').val();
+			
+			if(email != '' || password !=''){
+				$.ajax({
+					type: "POST",
+					data:{
+						email: email,
+                        password: password
+					},
+                    url: "loginoperation.php",
+                    
+					success: function(responseText){
+                        if(responseText==1){
+                            window.location="admin.php";
+                        }else {
+                            $("#result").html(responseText);
+                            
+                        }
+//                        setTimeout(function(){
+//                            $('#result').fadeOut();
+////                            location.reload();
+////                             window.location = document.URL;
+//                            },1000);
+					}
+                 
+				});
+			}else{
+				$("#result").text("Fill up each field !!");
+				
+			}
+			
+			 //return false;
+		});
+	});
+	
+	</script> 
+	</body>
+</html>

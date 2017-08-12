@@ -1,0 +1,9 @@
+input[type=text], .txtarea{
+margin-bottom: 15px;
+ }
+ button[type=submit]{margin-top:15px
+ }
+ .colors{
+	 background-color: #E0EBEB;
+	 font-weight:bold
+ }
